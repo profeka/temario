@@ -47,6 +47,16 @@
         .rhombus-text {
             transform: rotate(-45deg);
         }
+        .panda-decoration {
+            width: 100%;
+            height: auto;
+            border: 4px solid black;
+            border-radius: 8px;
+            box-shadow: 6px 6px 0 0 #000000;
+            object-fit: contain; /* Usar contain para que la imagen completa quepa */
+            max-height: 400px; /* Limitar la altura para control de diseño */
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-[#FFFFFF] text-[#000000]">
@@ -69,6 +79,9 @@
         <section id="inicio" class="text-center py-16 md:py-24 border-b-4 border-black mb-12 bg-white">
             <h1 class="text-5xl md:text-7xl font-black text-[#000000] mb-4">LÓGICA Y ALGORITMOS</h1>
             <p class="text-xl md:text-2xl max-w-4xl mx-auto font-bold">Conceptos fundamentales de la programación basados en la lógica de **Code Panda** y el juego **Panda Escape**.</p>
+            <div class="mt-8 max-w-sm mx-auto">
+                <img src="Gemini_Generated_Image_qif6n7qif6n7qif6(2).jpg" alt="Panda Escape logo y un panda atrevido" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6(2).jpg'" />
+            </div>
         </section>
 
         <section id="pensamiento" class="py-16">
@@ -79,6 +92,9 @@
             <div id="steps-container" class="flex flex-col md:flex-row justify-center items-center md:items-start gap-4">
             </div>
             <div id="step-content" class="mt-8 bg-white p-6 border-4 border-black min-h-[120px] transition-opacity duration-500 font-medium text-center shadow-[4px_4px_0_#CCFF00]">
+            </div>
+            <div class="mt-8 max-w-xs mx-auto">
+                 <img src="Gemini_Generated_Image_qif6n7qif6n7qif6(1).jpg" alt="Panda con expresión pensativa" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6(1).jpg'" />
             </div>
         </section>
 
@@ -114,6 +130,9 @@
                 <h3 id="symbol-name" class="text-xl font-black text-[#000000]"></h3>
                 <p id="symbol-desc"></p>
             </div>
+            <div class="mt-8 max-w-lg mx-auto">
+                 <img src="Gemini_Generated_Image_qufsu9qufsu9qufs.jpg" alt="Panda siguiendo un mapa o laberinto" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qufsu9qufsu9qufs.jpg'" />
+            </div>
         </section>
 
         <section id="tipos" class="py-16">
@@ -134,7 +153,7 @@
         <section id="datos" class="py-16">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">5. Tipos de Datos y la Información</h2>
-                <p class="mt-4 max-w-2xl mx-auto font-medium">Los datos son el contexto del juego. Un dato puede ser el nivel de **bambú** o si hay un obstáculo enfrente. Estos se clasifican en:</p>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">Los datos son el contexto del juego. Un dato puede ser el nivel, o si hay un obstáculo enfrente. Estos se clasifican en:</p>
             </div>
              <div class="grid md:grid-cols-2 gap-8 items-center bg-white p-6 border-4 border-black">
                 <div id="data-info" class="min-h-[150px] font-medium md:col-span-2 text-center">
@@ -145,14 +164,17 @@
                         <div class="bg-[#CCFF00] p-4 border-4 border-black text-left shadow-[4px_4px_0_#000000]">
                             <h4 class="font-extrabold text-lg">DATOS NUMÉRICOS</h4>
                             <p class="text-sm mt-1">Representados por cifras (enteros o decimales). Se usan en comparaciones lógicas.</p>
-                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: 10 (monedas), 5 (nivel de bambú), 0 (niveles de lava).</div>
+                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: 3 (monedas recogidas), 5 (nivel de juego), 4 (bloques necesarios).</div>
                         </div>
                         <div class="bg-[#CCFF00] p-4 border-4 border-black text-left shadow-[4px_4px_0_#000000]">
                             <h4 class="font-extrabold text-lg">DATOS ALFANUMÉRICOS</h4>
                             <p class="text-sm mt-1">Formados por cualquier carácter (letras, números, símbolos). Se usan para etiquetas o mensajes.</p>
-                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: "Nivel 5", "Game Over", "Si(HayTrampa)".</div>
+                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: "Nivel 5", "Try Again", "North".</div>
                         </div>
                     </div>
+                </div>
+                <div class="mt-4 max-w-sm mx-auto md:col-span-2">
+                    <img src="Gemini_Generated_Image_qif6n7qif6n7qif6.jpg" alt="Panda con bloques de datos y números" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6.jpg'" />
                 </div>
             </div>
         </section>
@@ -186,24 +208,76 @@
                     { 
                         name: 'Secuencial', 
                         desc: 'Las instrucciones se ejecutan una tras otra, siguiendo el orden. No hay condiciones. (Ejemplo: Ponerse camiseta, Ponerse pantalón, Ponerse calcetines).',
-                        diagram: `<div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold">Ponerse Calcetines</div><div class="h-8 w-px bg-black mx-auto my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div><div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold">Ponerse Zapatos</div>`
+                        diagram: `
+                            <div class="flex flex-col items-center">
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
+                                <div class="h-8 w-px bg-black my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Pantalón</div>
+                                <div class="h-8 w-px bg-black my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
+                            </div>
+                        `
                     },
                     { 
                         name: 'Selectivo', 
-                        desc: 'Se ejecuta una acción solo si se cumple una condición (Si... Entonces...). (Ejemplo: Si(HaceFrío) Entonces(PonerseSudadera)).',
-                        diagram: `<div class="p-2 bg-white border-4 border-black rhombus flex items-center justify-center mx-auto shadow-[4px_4px_0px_#000000]"><span class="rhombus-text text-xs font-semibold">¿Hace Frío?</span></div><div class="flex justify-around mt-2"><div class="text-center w-1/2"><span class="font-bold">SÍ →</span><div class="p-2 bg-[#CCFF00] border-4 border-black text-xs mt-1 shadow-[2px_2px_0px_#000000]">Ponerse Sudadera</div></div><div class="text-center w-1/2"><span class="font-bold">NO →</span><div class="p-2 bg-white border-4 border-black text-xs mt-1 shadow-[2px_2px_0px_#000000]">Ponerse Camiseta</div></div></div>`
+                        desc: 'Se ejecuta una acción solo si se cumple una condición (Si... Entonces...). (Este ejemplo combina Secuencial, Iterativo y Selectivo).',
+                        diagram: `
+                            <div class="flex flex-col items-center font-extrabold text-sm">
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black rounded-full shadow-[4px_4px_0_#000000]">INICIO</div>
+                                
+                                <div class="h-4 w-px bg-black my-1"></div>
+                                
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Ropa Interior</div>
+                                
+                                <div class="h-4 w-px bg-black my-1"></div>
+                                
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Calcetines (Repetir 2 veces)</div>
+                                
+                                <div class="h-4 w-px bg-black my-1"></div>
+                                
+                                <div class="w-24 h-24 bg-white border-4 border-black rhombus flex items-center justify-center shadow-[4px_4px_0_#000000]"><span class="rhombus-text text-xs font-black">¿Hace Frío?</span></div>
+                                
+                                <div class="flex justify-between w-64 md:w-80 mt-2">
+                                    
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-px h-6 bg-black"></div>
+                                        <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">SÍ</div>
+                                        <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">Ponerse Sudadera</div>
+                                    </div>
+                                    
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-px h-6 bg-black"></div>
+                                        <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">NO</div>
+                                        <div class="w-40 p-2 bg-white border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="h-8 w-px bg-black my-1"></div>
+                                
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
+                                
+                                <div class="h-4 w-px bg-black my-1"></div>
+
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black rounded-full shadow-[4px_4px_0_#000000]">FIN</div>
+                            </div>
+                        `
                     },
                     { 
                         name: 'Iterativo', 
                         desc: 'Repetición de pasos usando bucles (Repetir N veces). (Ejemplo: Repetir(2 veces) Ponerse calcetín).',
-                        diagram: `<div class="p-4 border-4 border-dashed border-black shadow-[4px_4px_0px_#000000] bg-white"><div class="font-black text-center mb-2 text-[#000000]">REPETIR (2 veces)</div><div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[2px_2px_0px_#000000]">Ponerse Calcetín</div></div>`
+                        diagram: `
+                            <div class="p-4 border-4 border-dashed border-black shadow-[4px_4px_0px_#000000] bg-white">
+                                <div class="font-black text-center mb-2 text-[#000000]">REPETIR (2 veces)</div>
+                                <div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[2px_2px_0px_#000000]">Ponerse Calcetín</div>
+                            </div>
+                        `
                     }
                 ],
                 datos: [
                     { 
                         name: 'Numéricos', 
                         desc: 'Representados por cifras. Pueden ser enteros o decimales. Se usan en comparaciones.', 
-                        examples: '<b>Enteros:</b> 10 (monedas recogidas), 5 (nivel de bambú), 0 (niveles de lava)<br><b>Decimales:</b> 1.5 (velocidad de movimiento)'
+                        examples: '<b>Enteros:</b> 10 (monedas), 5 (nivel de bambú), 0 (niveles de lava)<br><b>Decimales:</b> 1.5 (velocidad de movimiento)'
                     },
                     { 
                         name: 'Alfanuméricos', 
@@ -335,7 +409,7 @@
             });
 
             function updateTabContent(index) {
-                tabsContent.innerHTML = `<p class="mb-4 font-medium">${data.tipos[index].desc}</p><div class="text-center">${data.tipos[index].diagram}</div>`;
+                tabsContent.innerHTML = `<p class="mb-4 font-medium">${data.tipos[index].desc}</p><div class="flex justify-center">${data.tipos[index].diagram}</div>`;
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     btn.className = 'tab-btn whitespace-nowrap py-4 px-1 border-b-4 font-black text-lg border-transparent text-gray-700 hover:text-black hover:border-black transition-all duration-100';
                 });
