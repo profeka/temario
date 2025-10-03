@@ -57,6 +57,26 @@
             max-height: 400px; 
             display: block;
         }
+        /* Estilos para Flechas en Diagrama */
+        .flow-arrow-down {
+            height: 24px;
+            width: 1px;
+            background-color: transparent; /* Solo para espaciamiento */
+            position: relative;
+            margin: 4px auto;
+        }
+        .flow-arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 8px solid #000000;
+        }
     </style>
 </head>
 <body class="bg-[#FFFFFF] text-[#000000]">
@@ -213,44 +233,92 @@
                         name: 'Secuencial', 
                         desc: 'Las instrucciones se ejecutan una tras otra, siguiendo el orden. No hay condiciones. (Ejemplo: Ponerse camiseta, Ponerse pantalón, Ponerse calcetines).',
                         diagram: `
-                            <div class="flex flex-col items-center">
-                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
-                                <div class="h-8 w-px bg-black my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
-                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Pantalón</div>
-                                <div class="h-8 w-px bg-black my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
-                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
+                            <div class="flex flex-col items-center font-extrabold text-sm">
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Pantalón</div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
                             </div>
                         `
                     },
                     { 
                         name: 'Selectivo', 
-                        desc: 'Se ejecuta una acción solo si se cumple una condición (Si... Entonces...). (Este ejemplo combina Secuencial, Iterativo y Selectivo).',
+                        desc: 'La acción se ejecuta solo si se cumple la condición. En Code Panda, es una decisión que dirige el flujo. (Ejemplo: Decisión simple sobre la sudadera).',
+                        diagram: `
+                            <div class="flex flex-col items-center font-extrabold text-sm">
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
+                                
+                                <div class="w-24 h-24 bg-white border-4 border-black rhombus flex items-center justify-center shadow-[4px_4px_0_#000000]"><span class="rhombus-text text-xs font-black">¿Hace Frío?</span></div>
+                                
+                                <div class="flex justify-between w-64 md:w-80 mt-2">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-px h-6 bg-black relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
+                                        <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">SÍ</div>
+                                        <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">Ponerse Sudadera</div>
+                                    </div>
+                                    
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-px h-6 bg-black relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
+                                        <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">NO</div>
+                                        <div class="w-40 p-2 bg-white border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">No hacer nada</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full h-8 relative">
+                                    <div class="absolute inset-x-0 top-1/2 h-px bg-black"></div>
+                                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-8 border-t-black"></div>
+                                </div>
+                                
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
+                            </div>
+                        `
+                    },
+                    { 
+                        name: 'Iterativo', 
+                        desc: 'Repetición de pasos usando bucles (Repetir N veces). (Ejemplo: Repetir(2 veces) Ponerse calcetín).',
+                        diagram: `
+                            <div class="flex flex-col items-center font-extrabold text-sm">
+                                <div class="p-4 border-4 border-dashed border-black shadow-[4px_4px_0px_#000000] bg-white w-48">
+                                    <div class="font-black text-center mb-2 text-[#000000]">REPETIR (2 veces)</div>
+                                    <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[2px_2px_0px_#000000] mx-auto">Ponerse Calcetín</div>
+                                </div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapato Izquierdo</div>
+                            </div>
+                        `
+                    },
+                    { 
+                        name: 'Ejemplo Completo', 
+                        desc: 'Este es un algoritmo que combina las tres estructuras (Secuencial, Iterativo y Selectivo) para el proceso completo de vestirse.',
                         diagram: `
                             <div class="flex flex-col items-center font-extrabold text-sm">
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black rounded-full shadow-[4px_4px_0_#000000]">INICIO</div>
                                 
-                                <div class="h-4 w-px bg-black my-1"></div>
-                                
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Ropa Interior</div>
                                 
-                                <div class="h-4 w-px bg-black my-1"></div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
+                                <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Pantalón</div>
                                 
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Calcetines (Repetir 2 veces)</div>
                                 
-                                <div class="h-4 w-px bg-black my-1"></div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
                                 
                                 <div class="w-24 h-24 bg-white border-4 border-black rhombus flex items-center justify-center shadow-[4px_4px_0_#000000]"><span class="rhombus-text text-xs font-black">¿Hace Frío?</span></div>
                                 
                                 <div class="flex justify-between w-64 md:w-80 mt-2">
                                     
                                     <div class="flex flex-col items-center">
-                                        <div class="w-px h-6 bg-black"></div>
+                                        <div class="w-px h-6 bg-black relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
                                         <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">SÍ</div>
                                         <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">Ponerse Sudadera</div>
                                     </div>
                                     
                                     <div class="flex flex-col items-center">
-                                        <div class="w-px h-6 bg-black"></div>
+                                        <div class="w-px h-6 bg-black relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div>
                                         <div class="w-20 border-b-4 border-black text-center text-xs pb-1 font-black">NO</div>
                                         <div class="w-40 p-2 bg-white border-4 border-black mt-2 shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
                                     </div>
@@ -260,19 +328,9 @@
                                 
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
                                 
-                                <div class="h-4 w-px bg-black my-1"></div>
+                                <div class="flow-arrow-down w-px bg-transparent"></div>
 
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black rounded-full shadow-[4px_4px_0_#000000]">FIN</div>
-                            </div>
-                        `
-                    },
-                    { 
-                        name: 'Iterativo', 
-                        desc: 'Repetición de pasos usando bucles (Repetir N veces). (Ejemplo: Repetir(2 veces) Ponerse calcetín).',
-                        diagram: `
-                            <div class="p-4 border-4 border-dashed border-black shadow-[4px_4px_0px_#000000] bg-white">
-                                <div class="font-black text-center mb-2 text-[#000000]">REPETIR (2 veces)</div>
-                                <div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[2px_2px_0px_#000000]">Ponerse Calcetín</div>
                             </div>
                         `
                     }
