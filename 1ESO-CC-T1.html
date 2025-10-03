@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Neubrutalism (High Contrast: #000000, #FFFFFF, Accent: #CCFF00) -->
+    <!-- Application Structure Plan: The SPA is designed as a thematic, single-page journey with a sticky top navigation for easy access to sections. The structure flows from the abstract (Pensamiento Computacional) to the concrete (Tipos de Datos), using interactive elements in each section to encourage user exploration. Sections include: 1. A hero intro. 2. An interactive stepper for the 5 steps of computational thinking. 3. Cards and a toggle for Algorithm definitions. 4. An interactive symbol gallery for Flowcharts. 5. A tabbed interface to compare Algorithm Types. 6. An interactive chart for Data Types. This structure was chosen to transform the static text document into an engaging, guided learning experience that promotes understanding through interaction rather than passive reading. -->
+    <!-- Visualization & Content Choices: 1. Pensamiento Computacional -> Goal: Organize -> Viz: Interactive Stepper (HTML/CSS/JS) -> Justification: Breaks down a multi-step process into digestible, user-controlled chunks. 2. Diagrama de Flujo Symbols -> Goal: Organize/Inform -> Viz: Interactive Symbol Gallery (HTML/CSS/JS) -> Justification: Creates an interactive reference where users can click a symbol (built with styled divs) to see its function, reinforcing visual learning. 3. Tipos de Algoritmos -> Goal: Compare -> Viz: Tabbed Diagrams (HTML/CSS/JS) -> Justification: Allows direct side-by-side comparison of different logical structures within the same UI space, now using Code Panda logic blocks. 4. Tipos de Datos -> Goal: Compare/Inform -> Viz: Interactive Pie Chart (Chart.js/Canvas) -> Justification: Visually represents the composition of data types. An interactive click event shows examples of each type, adding another layer of information. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-symbol {
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+        }
+        .flow-symbol.active {
+            transform: translate(-3px, -3px) scale(1.05);
+            box-shadow: 4px 4px 0 0 #000000;
+        }
+        .rhombus {
+            width: 90px;
+            height: 90px;
+            transform: rotate(45deg);
+        }
+        .rhombus-text {
+            transform: rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="bg-[#FFFFFF] text-[#000000]">
+
+    <header class="bg-[#CCFF00] border-b-4 border-black sticky top-0 z-50">
+        <nav id="main-nav" class="container mx-auto px-6 py-3 flex justify-between items-center font-extrabold">
+            <div class="text-2xl text-[#000000]">TEMA 1</div>
+            <div class="hidden md:flex space-x-2">
+                <a href="#pensamiento" class="nav-link hover:text-black p-2 border-2 border-transparent hover:bg-white hover:border-black transition-all duration-100">Pensamiento</a>
+                <a href="#algoritmo" class="nav-link hover:text-black p-2 border-2 border-transparent hover:bg-white hover:border-black transition-all duration-100">Algoritmo</a>
+                <a href="#diagrama" class="nav-link hover:text-black p-2 border-2 border-transparent hover:bg-white hover:border-black transition-all duration-100">Diagrama</a>
+                <a href="#tipos" class="nav-link hover:text-black p-2 border-2 border-transparent hover:bg-white hover:border-black transition-all duration-100">Tipos</a>
+                <a href="#datos" class="nav-link hover:text-black p-2 border-2 border-transparent hover:bg-white hover:border-black transition-all duration-100">Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-6">
+
+        <section id="inicio" class="text-center py-16 md:py-24 border-b-4 border-black mb-12 bg-white">
+            <h1 class="text-5xl md:text-7xl font-black text-[#000000] mb-4">LÓGICA Y ALGORITMOS</h1>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto font-bold">Conceptos fundamentales de la programación basados en la lógica de **Code Panda** y el juego **Panda Escape**.</p>
+        </section>
+
+        <section id="pensamiento" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">1. El Pensamiento Computacional</h2>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">Es el proceso mental para resolver problemas. Se aplica para que nuestro Panda (o cualquier personaje) pueda superar obstáculos y escapar.</p>
+            </div>
+            <div id="steps-container" class="flex flex-col md:flex-row justify-center items-center md:items-start gap-4">
+            </div>
+            <div id="step-content" class="mt-8 bg-white p-6 border-4 border-black min-h-[120px] transition-opacity duration-500 font-medium text-center shadow-[4px_4px_0_#CCFF00]">
+            </div>
+        </section>
+
+        <section id="algoritmo" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">2. ¿Qué es un Algoritmo?</h2>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">Es la secuencia de instrucciones que escribimos en **Code Panda** para que el personaje avance. Debe cumplir con estas tres reglas:</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white p-6 border-4 border-black">
+                    <h3 class="text-2xl font-black text-[#CCFF00] bg-[#000000] inline-block px-2 py-1 mb-2">CONCRETO</h3>
+                    <p class="font-bold">Instrucciones claras. (Ej: `Avanzar(1)` es mejor que 'Mover un poco').</p>
+                </div>
+                <div class="bg-white p-6 border-4 border-black">
+                    <h3 class="text-2xl font-black text-[#CCFF00] bg-[#000000] inline-block px-2 py-1 mb-2">FINITO</h3>
+                    <p class="font-bold">Siempre debe terminar. (Ej: El Panda llega al **bambú**).</p>
+                </div>
+                <div class="bg-white p-6 border-4 border-black">
+                    <h3 class="text-2xl font-black text-[#CCFF00] bg-[#000000] inline-block px-2 py-1 mb-2">ORDENADO</h3>
+                    <p class="font-bold">Los pasos se ejecutan de principio a fin, sin saltos accidentales.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="diagrama" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">3. Diagrama de Flujo</h2>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">La forma visual de planear los movimientos del Panda. Haz clic en cada símbolo para saber su significado en el mapa lógico.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center mb-8" id="symbols-container">
+            </div>
+            <div id="symbol-info" class="bg-white p-6 border-4 border-black text-center min-h-[100px] font-medium">
+                <h3 id="symbol-name" class="text-xl font-black text-[#000000]"></h3>
+                <p id="symbol-desc"></p>
+            </div>
+        </section>
+
+        <section id="tipos" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">4. Estructuras de Algoritmos (Ejemplo de Ropa)</h2>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">Usamos estas tres estructuras lógicas para tareas cotidianas. El ejemplo es el proceso de vestirse por la mañana:</p>
+            </div>
+            <div class="bg-white p-6 border-4 border-black">
+                <div class="border-b-4 border-black">
+                    <nav id="tabs-nav" class="-mb-px flex space-x-2 md:space-x-6 font-bold" aria-label="Tabs">
+                    </nav>
+                </div>
+                <div id="tabs-content" class="py-6">
+                </div>
+            </div>
+        </section>
+
+        <section id="datos" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-[#000000] border-b-4 border-black inline-block pb-1">5. Tipos de Datos y la Información</h2>
+                <p class="mt-4 max-w-2xl mx-auto font-medium">Los datos son el contexto del juego. Un dato puede ser el nivel de **bambú** o si hay un obstáculo enfrente. Estos se clasifican en:</p>
+            </div>
+             <div class="grid md:grid-cols-2 gap-8 items-center bg-white p-6 border-4 border-black">
+                <div id="data-info" class="min-h-[150px] font-medium md:col-span-2 text-center">
+                    <h3 class="text-xl font-black text-[#000000] mb-3">Clasificación de Datos</h3>
+                    <p class="mb-4">Aunque solo existen dos tipos principales, entender sus ejemplos en **Code Panda** es vital. Los datos son la base de las condiciones lógicas.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[#CCFF00] p-4 border-4 border-black text-left shadow-[4px_4px_0_#000000]">
+                            <h4 class="font-extrabold text-lg">DATOS NUMÉRICOS</h4>
+                            <p class="text-sm mt-1">Representados por cifras (enteros o decimales). Se usan en comparaciones lógicas.</p>
+                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: 10 (monedas), 5 (nivel de bambú), 0 (niveles de lava).</div>
+                        </div>
+                        <div class="bg-[#CCFF00] p-4 border-4 border-black text-left shadow-[4px_4px_0_#000000]">
+                            <h4 class="font-extrabold text-lg">DATOS ALFANUMÉRICOS</h4>
+                            <p class="text-sm mt-1">Formados por cualquier carácter (letras, números, símbolos). Se usan para etiquetas o mensajes.</p>
+                            <div class="text-sm bg-white p-2 border-2 border-black mt-2 font-bold">Ej: "Nivel 5", "Game Over", "Si(HayTrampa)".</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-6 bg-[#CCFF00] mt-16 border-t-4 border-black font-extrabold">
+        <p>¡Fin del Tema 1! El Algoritmo es la clave de tu escapada en Panda Escape.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- DATA (Contenido del Reporte) ---
+            const data = {
+                pensamiento: [
+                    { title: '1. Abstracción', desc: 'Hacer deducciones e imaginar situaciones. (Ej: Pensar si el camino es seguro antes de mover al Panda).' },
+                    { title: '2. División', desc: 'Dividir el problema complejo del nivel en tareas pequeñas. (Ej: "Avanzar", "Girar", "Recoger Bambú").' },
+                    { title: '3. Identificación', desc: 'Definir los aspectos cruciales (datos, condicionantes, restricciones). (Ej: El bambú es la meta; evitar las trampas es un condicionante).' },
+                    { title: '4. Modelo', desc: 'Crear una solución. (Ej: Diseñar la secuencia de comandos en Code Panda).' },
+                    { title: '5. Ejecución', desc: 'La solución debe poder ser ejecutada. (Ej: Presionar el botón de "Play" para ver al Panda moverse).' }
+                ],
+                diagrama: [
+                    { name: 'Terminal', desc: 'Representa el comienzo o el fin del algoritmo.', shape: 'oval' },
+                    { name: 'Proceso', desc: 'Representa las acciones u operaciones que hay que realizar.', shape: 'rect' },
+                    { name: 'Entrada/Salida', desc: 'Se usa cuando se necesitan datos adicionales (entrada) o se presentan resultados (salida).', shape: 'parallelogram' },
+                    { name: 'Decisión', desc: 'Se utiliza cuando es necesario decidir entre dos o más opciones, señalando el camino a seguir.', shape: 'rhombus' },
+                    { name: 'Línea de Flujo', desc: 'Indica el orden y la dirección en que se desarrollan las acciones.', shape: 'arrow' }
+                ],
+                tipos: [
+                    { 
+                        name: 'Secuencial', 
+                        desc: 'Las instrucciones se ejecutan una tras otra, siguiendo el orden. No hay condiciones. (Ejemplo: Ponerse camiseta, Ponerse pantalón, Ponerse calcetines).',
+                        diagram: `<div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold">Ponerse Calcetines</div><div class="h-8 w-px bg-black mx-auto my-1 relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:border-t-8 after:border-t-black"></div><div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold">Ponerse Zapatos</div>`
+                    },
+                    { 
+                        name: 'Selectivo', 
+                        desc: 'Se ejecuta una acción solo si se cumple una condición (Si... Entonces...). (Ejemplo: Si(HaceFrío) Entonces(PonerseSudadera)).',
+                        diagram: `<div class="p-2 bg-white border-4 border-black rhombus flex items-center justify-center mx-auto shadow-[4px_4px_0px_#000000]"><span class="rhombus-text text-xs font-semibold">¿Hace Frío?</span></div><div class="flex justify-around mt-2"><div class="text-center w-1/2"><span class="font-bold">SÍ →</span><div class="p-2 bg-[#CCFF00] border-4 border-black text-xs mt-1 shadow-[2px_2px_0px_#000000]">Ponerse Sudadera</div></div><div class="text-center w-1/2"><span class="font-bold">NO →</span><div class="p-2 bg-white border-4 border-black text-xs mt-1 shadow-[2px_2px_0px_#000000]">Ponerse Camiseta</div></div></div>`
+                    },
+                    { 
+                        name: 'Iterativo', 
+                        desc: 'Repetición de pasos usando bucles (Repetir N veces). (Ejemplo: Repetir(2 veces) Ponerse calcetín).',
+                        diagram: `<div class="p-4 border-4 border-dashed border-black shadow-[4px_4px_0px_#000000] bg-white"><div class="font-black text-center mb-2 text-[#000000]">REPETIR (2 veces)</div><div class="p-2 bg-[#CCFF00] border-4 border-black font-extrabold shadow-[2px_2px_0px_#000000]">Ponerse Calcetín</div></div>`
+                    }
+                ],
+                datos: [
+                    { 
+                        name: 'Numéricos', 
+                        desc: 'Representados por cifras. Pueden ser enteros o decimales. Se usan en comparaciones.', 
+                        examples: '<b>Enteros:</b> 10 (monedas recogidas), 5 (nivel de bambú), 0 (niveles de lava)<br><b>Decimales:</b> 1.5 (velocidad de movimiento)'
+                    },
+                    { 
+                        name: 'Alfanuméricos', 
+                        desc: 'Formados por cualquier tipo de carácter (letras, números, símbolos). Se usan para etiquetas o mensajes.',
+                        examples: '<b>Ejemplos:</b> "Nivel 5", "Game Over", "Si(HayTrampa)"'
+                    }
+                ]
+            };
+
+            // --- NAVEGACIÓN (Fix del menú roto) ---
+            document.querySelectorAll('.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                         window.scrollTo({
+                            top: targetElement.offsetTop - document.getElementById('main-nav').offsetHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+
+            // --- SECCIÓN 1: PENSAMIENTO COMPUTACIONAL ---
+            const stepsContainer = document.getElementById('steps-container');
+            const stepContent = document.getElementById('step-content');
+            let activeStep = 0;
+
+            data.pensamiento.forEach((step, index) => {
+                const stepElement = document.createElement('button');
+                // FIX: Cambiado text-black a text-white para el botón activo.
+                stepElement.className = `step-btn border-4 border-black p-3 w-full md:w-auto text-left transition-colors duration-300 font-extrabold ${index === 0 ? 'bg-[#000000] text-white shadow-[4px_4px_0_#CCFF00]' : 'bg-white text-black hover:bg-[#CCFF00] hover:text-black shadow-[4px_4px_0_#000000]'}`;
+                stepElement.textContent = step.title;
+                stepElement.dataset.index = index;
+                stepsContainer.appendChild(stepElement);
+            });
+
+            function updateStepContent(index) {
+                stepContent.style.opacity = '0';
+                setTimeout(() => {
+                    stepContent.innerHTML = `<p>${data.pensamiento[index].desc}</p>`;
+                    stepContent.style.opacity = '1';
+                }, 300);
+                document.querySelectorAll('.step-btn').forEach(btn => {
+                    btn.classList.remove('bg-[#000000]', 'text-white', 'shadow-[4px_4px_0_#CCFF00]');
+                    btn.classList.add('bg-white', 'text-black', 'shadow-[4px_4px_0_#000000]', 'hover:bg-[#CCFF00]', 'hover:text-black');
+                });
+                const activeBtn = document.querySelector(`.step-btn[data-index="${index}"]`);
+                activeBtn.classList.add('bg-[#000000]', 'text-white', 'shadow-[4px_4px_0_#CCFF00]');
+                activeBtn.classList.remove('bg-white', 'hover:bg-[#CCFF00]', 'hover:text-black', 'shadow-[4px_4px_0_#000000]');
+            }
+
+            stepsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('step-btn')) {
+                    const index = parseInt(e.target.dataset.index, 10);
+                    activeStep = index;
+                    updateStepContent(index);
+                }
+            });
+
+            updateStepContent(0);
+
+            // --- SECCIÓN 3: DIAGRAMA DE FLUJO ---
+            const symbolsContainer = document.getElementById('symbols-container');
+            const symbolName = document.getElementById('symbol-name');
+            const symbolDesc = document.getElementById('symbol-desc');
+            
+            data.diagrama.forEach((symbol, index) => {
+                const symbolWrapper = document.createElement('div');
+                symbolWrapper.className = `flex items-center justify-center flow-symbol w-28 h-28 border-4 border-black bg-white`;
+                symbolWrapper.dataset.index = index;
+                symbolWrapper.style.transform = `translate(0, 0)`;
+
+                let shapeHtml = '';
+                switch(symbol.shape) {
+                    case 'oval':
+                        shapeHtml = `<div class="w-24 h-16 bg-[#CCFF00] border-2 border-black rounded-full flex items-center justify-center p-2 text-xs font-semibold">${symbol.name}</div>`;
+                        break;
+                    case 'rect':
+                        shapeHtml = `<div class="w-24 h-14 bg-[#CCFF00] border-2 border-black flex items-center justify-center p-2 text-xs font-semibold">${symbol.name}</div>`;
+                        break;
+                    case 'parallelogram':
+                        shapeHtml = `<div class="w-24 h-14 bg-[#CCFF00] border-2 border-black -skew-x-12 flex items-center justify-center p-2 text-xs font-semibold"><span class="skew-x-12">${symbol.name}</span></div>`;
+                        break;
+                    case 'rhombus':
+                         shapeHtml = `<div class="rhombus bg-[#CCFF00] border-2 border-black flex items-center justify-center p-2"><span class="rhombus-text text-xs font-semibold">${symbol.name}</span></div>`;
+                        break;
+                    case 'arrow':
+                        shapeHtml = `<div class="h-20 w-1 bg-[#000000] relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-12 after:border-t-[#000000]"></div>`;
+                         symbolWrapper.classList.remove('border-4');
+                         symbolWrapper.classList.add('border-none');
+                         symbolWrapper.classList.remove('bg-white');
+                        break;
+                }
+                symbolWrapper.innerHTML = shapeHtml;
+                symbolsContainer.appendChild(symbolWrapper);
+            });
+            
+            function updateSymbolInfo(index) {
+                document.querySelectorAll('.flow-symbol').forEach(el => el.classList.remove('active'));
+                const activeEl = document.querySelector(`.flow-symbol[data-index="${index}"]`);
+                if(activeEl) activeEl.classList.add('active');
+
+                symbolName.textContent = data.diagrama[index].name;
+                symbolDesc.textContent = data.diagrama[index].desc;
+            }
+
+            symbolsContainer.addEventListener('click', e => {
+                const symbolEl = e.target.closest('.flow-symbol');
+                if (symbolEl) {
+                    updateSymbolInfo(symbolEl.dataset.index);
+                }
+            });
+            updateSymbolInfo(0);
+
+            // --- SECCIÓN 4: TIPOS DE ALGORITMOS ---
+            const tabsNav = document.getElementById('tabs-nav');
+            const tabsContent = document.getElementById('tabs-content');
+
+            data.tipos.forEach((tab, index) => {
+                const tabButton = document.createElement('a');
+                tabButton.href = "#";
+                tabButton.dataset.index = index;
+                tabButton.className = `tab-btn whitespace-nowrap py-4 px-1 border-b-4 font-black text-lg ${index === 0 ? 'border-[#000000] text-[#000000] bg-[#CCFF00] px-4' : 'border-transparent text-gray-700 hover:text-black hover:border-black'}`;
+                tabButton.textContent = tab.name;
+                tabsNav.appendChild(tabButton);
+            });
+
+            function updateTabContent(index) {
+                tabsContent.innerHTML = `<p class="mb-4 font-medium">${data.tipos[index].desc}</p><div class="text-center">${data.tipos[index].diagram}</div>`;
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.className = 'tab-btn whitespace-nowrap py-4 px-1 border-b-4 font-black text-lg border-transparent text-gray-700 hover:text-black hover:border-black transition-all duration-100';
+                });
+                const activeBtn = document.querySelector(`.tab-btn[data-index="${index}"]`);
+                activeBtn.className = 'tab-btn whitespace-nowrap py-4 px-1 border-b-4 font-black text-lg border-[#000000] text-[#000000] bg-[#CCFF00] px-4';
+            }
+            
+            tabsNav.addEventListener('click', e => {
+                e.preventDefault();
+                if (e.target.classList.contains('tab-btn')) {
+                    updateTabContent(e.target.dataset.index);
+                }
+            });
+            updateTabContent(0);
+
+        });
+    </script>
+</body>
+</html>
