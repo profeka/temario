@@ -77,6 +77,34 @@
             border-right: 4px solid transparent;
             border-top: 8px solid #000000;
         }
+        /* Estilo específico para la flecha de la galería de símbolos */
+        .gallery-arrow-box {
+            height: 80px;
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            border: none !important; /* Quitar el borde principal del contenedor para la flecha */
+            background: none !important;
+        }
+        .gallery-arrow {
+            height: 60px;
+            width: 4px;
+            background-color: black;
+            position: relative;
+        }
+        .gallery-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 10px solid black;
+        }
     </style>
 </head>
 <body class="bg-[#FFFFFF] text-[#000000]">
@@ -100,8 +128,8 @@
             <h1 class="text-5xl md:text-7xl font-black text-[#000000] mb-4">LÓGICA Y ALGORITMOS</h1>
             <p class="text-xl md:text-2xl max-w-4xl mx-auto font-bold">Conceptos fundamentales de la programación basados en la lógica de **Code Panda** y el juego **Panda Escape**.</p>
             <div class="mt-8 max-w-sm mx-auto">
-                <!-- IMAGEN INICIO -->
-                <img src="Gemini_Generated_Image_qif6n7qif6n7qif6(2).jpg" alt="Panda Escape logo y un panda atrevido" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6(2).jpg'" />
+                <!-- IMAGEN INICIO: T1-img/iniciopanda.png -->
+                <img src="T1-img/iniciopanda.png" alt="Panda Escape logo y un panda atrevido" class="panda-decoration" onerror="this.onerror=null;this.src='T1-img/iniciopanda.png'" />
             </div>
         </section>
 
@@ -115,8 +143,8 @@
             <div id="step-content" class="mt-8 bg-white p-6 border-4 border-black min-h-[120px] transition-opacity duration-500 font-medium text-center shadow-[4px_4px_0_#CCFF00]">
             </div>
             <div class="mt-8 max-w-xs mx-auto">
-                <!-- IMAGEN PENSAMIENTO -->
-                 <img src="Gemini_Generated_Image_qif6n7qif6n7qif6(1).jpg" alt="Panda con expresión pensativa" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6(1).jpg'" />
+                <!-- IMAGEN PENSAMIENTO: T1-img/pcompanda.png -->
+                 <img src="T1-img/pcompanda.png" alt="Panda con expresión pensativa" class="panda-decoration" onerror="this.onerror=null;this.src='T1-img/pcompanda.png'" />
             </div>
         </section>
 
@@ -153,8 +181,8 @@
                 <p id="symbol-desc"></p>
             </div>
             <div class="mt-8 max-w-lg mx-auto">
-                <!-- IMAGEN DIAGRAMA DE FLUJO -->
-                 <img src="Gemini_Generated_Image_qufsu9qufsu9qufs.jpg" alt="Panda siguiendo un mapa o laberinto" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qufsu9qufsu9qufs.jpg'" />
+                <!-- IMAGEN DIAGRAMA DE FLUJO: T1-img/flujopanda.png -->
+                 <img src="T1-img/flujopanda.png" alt="Panda siguiendo un mapa o laberinto" class="panda-decoration" onerror="this.onerror=null;this.src='T1-img/flujopanda.png'" />
             </div>
         </section>
 
@@ -197,8 +225,8 @@
                     </div>
                 </div>
                 <div class="mt-4 max-w-sm mx-auto md:col-span-2">
-                    <!-- IMAGEN TIPOS DE DATOS -->
-                    <img src="Gemini_Generated_Image_qif6n7qif6n7qif6.jpg" alt="Panda con bloques de datos y números" class="panda-decoration" onerror="this.onerror=null;this.src='Gemini_Generated_Image_qif6n7qif6n7qif6.jpg'" />
+                    <!-- IMAGEN TIPOS DE DATOS: T1-img/datospanda.png -->
+                    <img src="T1-img/datospanda.png" alt="Panda con bloques de datos y números" class="panda-decoration" onerror="this.onerror=null;this.src='T1-img/datospanda.png'" />
                 </div>
             </div>
         </section>
@@ -244,7 +272,7 @@
                     },
                     { 
                         name: 'Selectivo', 
-                        desc: 'La acción se ejecuta solo si se cumple la condición. En Code Panda, es una decisión que dirige el flujo. (Ejemplo: Decisión simple sobre la sudadera).',
+                        desc: 'La acción se ejecuta solo si se cumple la condición. (Ejemplo simple sobre la sudadera).',
                         diagram: `
                             <div class="flex flex-col items-center font-extrabold text-sm">
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Camiseta</div>
@@ -324,7 +352,10 @@
                                     </div>
                                 </div>
                                 
-                                <div class="h-8 w-px bg-black my-1"></div>
+                                <div class="w-full h-8 relative">
+                                    <div class="absolute inset-x-0 top-1/2 h-px bg-black"></div>
+                                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-8 border-t-black"></div>
+                                </div>
                                 
                                 <div class="w-40 p-2 bg-[#CCFF00] border-4 border-black shadow-[4px_4px_0_#000000]">Ponerse Zapatos</div>
                                 
@@ -411,7 +442,9 @@
             
             data.diagrama.forEach((symbol, index) => {
                 const symbolWrapper = document.createElement('div');
-                symbolWrapper.className = `flex items-center justify-center flow-symbol w-28 h-28 border-4 border-black bg-white`;
+                // Uso de la clase gallery-arrow-box para la flecha de la galería
+                const isArrow = symbol.shape === 'arrow';
+                symbolWrapper.className = `flex items-center justify-center flow-symbol w-28 h-28 border-4 border-black bg-white ${isArrow ? 'gallery-arrow-box' : ''}`;
                 symbolWrapper.dataset.index = index;
                 symbolWrapper.style.transform = `translate(0, 0)`;
 
@@ -430,10 +463,8 @@
                          shapeHtml = `<div class="rhombus bg-[#CCFF00] border-2 border-black flex items-center justify-center p-2"><span class="rhombus-text text-xs font-semibold">${symbol.name}</span></div>`;
                         break;
                     case 'arrow':
-                        shapeHtml = `<div class="h-20 w-1 bg-[#000000] relative after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0 after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-12 after:border-t-[#000000]"></div>`;
-                         symbolWrapper.classList.remove('border-4');
-                         symbolWrapper.classList.add('border-none');
-                         symbolWrapper.classList.remove('bg-white');
+                        // CAMBIO CLAVE: Usar la nueva clase para el símbolo de la flecha
+                        shapeHtml = `<div class="gallery-arrow"></div>`;
                         break;
                 }
                 symbolWrapper.innerHTML = shapeHtml;
